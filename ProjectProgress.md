@@ -1,435 +1,230 @@
-# ProjectProgress.md
+# Project Progress
 
-> Project：我要当村长
-> Version：v0.1.0-alpha
-> Last Update：2026-07-09
+## Project Information
 
-------
+Project Name:
 
-# 一、项目当前状态
+我要当村长
 
-**开发阶段：Phase 1 - Simulation Framework**
+Version:
 
-目前目标不是开发游戏内容，而是建立整个模拟世界运行所需的基础框架。
+v0.1.0-alpha
 
-当前框架已经能够支持：
+Engine:
 
-- 游戏时间推进
-- 定时任务调度
-- Entity 管理
-- Config 数据驱动
-- Crop 生命周期模拟
+Unity 6.3 LTS
 
-后续所有系统（NPC、Animal、Tree、Building 等）都将在此框架基础上扩展。
+Development Stage:
+
+Phase 1 - Simulation Framework
 
 ------
 
-# 二、开发路线图（RoadMap）
+# Current Progress
 
-## Phase 1：Simulation Framework（进行中） 🟡
+## Current Status
 
-### Framework
+当前已完成 Simulation Framework 基础建设。
 
-状态：✅ 完成
+已完成：
 
-完成内容：
-
-- GameSystemManager
-- ISystem
-- ISaveable
-- System 注册与获取
-
-------
-
-### Core
-
-状态：✅ 完成
-
-完成内容：
-
+- Core 基础框架
+- GameSystem 管理体系
 - EventSystem
-- GameLog
 - GameTime
-
-------
-
-### Time
-
-状态：✅ 完成
-
-完成内容：
-
 - TimeSystem
-- 游戏时间推进
-- 分钟事件
-- 小时事件（预留）
-- 日期推进（基础）
-
-------
-
-### Scheduler
-
-状态：✅ 完成
-
-完成内容：
-
 - SchedulerSystem
-- Once Task
-- Loop Task
-- Pause / Resume
-- WaitRemove 删除机制
-- SchedulerTaskData
-
-------
-
-### Entity
-
-状态：✅ 完成
-
-完成内容：
-
-- Entity
+- Entity 基础体系
 - EntityManager
-- EntityId 分配
-- Register
-- Remove
-- 查询接口
+- Crop 基础模拟体系
+- CropConfig 配置体系
+
+## Current Task
+
+当前任务：
+
+Task25 - SaveSystem
+
+## Next Goal
+
+完成基础存档系统，使 Simulation 中的 Entity、System 状态可以被保存和恢复。
 
 ------
 
-### Config
+# Completed Tasks
 
-状态：🟢 第一阶段完成
+## Phase 1 - Simulation Framework
+
+### Task01 - Task17
 
 完成内容：
 
-- CropConfig
-- CropConfigManager
-- ConfigId
-- Config 数据驱动
+- 项目基础结构建立
+- Core、Framework、Simulation 模块划分
+- GameSystemManager
+- ISystem 生命周期管理
+- EventSystem
+- GameTime
+- TimeSystem
+- SchedulerSystem
 
-后续规划：
+### Task18
 
-- Luban 自动生成配置
-- Excel 导入
-- 热更新配置
+完成 Entity 基础设计。
+
+内容：
+
+- Entity 基础数据结构
+- Entity 生命周期设计
+
+### Task19
+
+完成 EntityManager。
+
+内容：
+
+- Entity 创建
+- Entity 注册
+- Entity 查询
+
+### Task20
+
+完成 Crop 接入 Entity 体系。
+
+内容：
+
+- Crop 作为 Simulation Entity
+- Crop 生命周期基础结构
+
+### Task21
+
+完成 Crop 生命周期设计。
+
+内容：
+
+- 生长阶段
+- 成长任务
+- 浇水任务
+- 收获任务
+
+### Task22
+
+完成 CropSystem 基础搭建。
+
+内容：
+
+- Crop 创建管理
+- Crop 生命周期驱动
+
+### Task23
+
+完成 CropConfig 与 ConfigManager 接入。
+
+内容：
+
+- 配置数据独立管理
+- Config 驱动 Crop 创建
+
+### Task24
+
+完成 Crop 集成 CropConfig ConfigId。
+
+内容：
+
+- Crop 保存 ConfigId
+- 通过 ConfigId 获取对应配置
+- 降低 Entity 与 Config 耦合
+- 支持后续序列化与存档
 
 ------
 
-### Crop
+# Development Roadmap
 
-状态：🟡 基础完成
-
-完成内容：
-
-- Crop Entity
-- CropSystem
-- 创建 Crop
-- WaterTask
-- GrowTask
-- HarvestTask
-- Config 驱动成长参数
-
-当前实现已验证：
-
-- Scheduler 与业务解耦
-- Entity 与 Config 分离
-- 多个 Task 协同工作
-
-后续优化：
-
-- GrowthProgress
-- 动态成长速度
-- 天气影响
-- 土壤影响
-- 肥料影响
-
-------
-
-### Save
-
-状态：⚪ 未开始
-
-计划：
-
-- SaveSystem
-- SaveManager
-- SaveData
-- 自动存档
-- 加载恢复 Scheduler
-
-------
-
-## Phase 2：Simulation World
-
-状态：⚪ 未开始
-
-计划完成：
-
-- TreeSystem
-- AnimalSystem
-- NPCSystem
-- BuildingSystem
-- ItemSystem
+## Phase 1 - Simulation Framework
 
 目标：
 
-世界中的所有实体均能够：
+建立游戏模拟基础框架。
 
-- 创建
-- 删除
-- 保存
-- 加载
-- 自主运行
+包含：
 
-------
+- 时间推进
+- 任务调度
+- Entity 管理
+- 配置系统
+- 存档系统
 
-## Phase 3：World Simulation
-
-状态：⚪ 未开始
-
-计划：
-
-- Weather
-- Season
-- DayNight
-- Terrain
-- WorldEvent
+## Phase 2 - World Simulation
 
 目标：
 
-环境开始影响整个模拟世界。
+建立村庄世界模拟。
 
-------
+包含：
 
-## Phase 4：AI
+- 地图系统
+- 建筑系统
+- 资源系统
+- NPC 基础系统
+- 动物系统
 
-状态：⚪ 未开始
-
-计划：
-
-NPC 自主决策系统。
-
-候选方案：
-
-- Utility AI
-- GOAP（待评估）
-
-后期目标：
-
-支持本地 AI 驱动。
-
-------
-
-## Phase 5：Gameplay
-
-状态：⚪ 未开始
-
-计划：
-
-- 建造
-- 种植
-- 采集
-- 贸易
-- 探索
-- 防御
-
-逐步形成完整玩法循环。
-
-------
-
-## Phase 6：Polish
-
-状态：⚪ 未开始
-
-包括：
-
-- 性能优化
-- 动画
-- 特效
-- 音效
-- 平衡性调整
-- Bug 修复
-
-------
-
-# 三、Task 完成情况
-
-| Task            | 状态 | 说明                                                         |
-| --------------- | ---- | ------------------------------------------------------------ |
-| Task01 ~ Task17 | ✅    | Framework、Core、Time、Scheduler 等基础系统完成              |
-| Task18          | ✅    | Entity 基础设计                                              |
-| Task19          | ✅    | EntityManager 建立                                           |
-| Task20          | ✅    | Crop 与 Entity 体系接入                                      |
-| Task21          | ✅    | Crop 生命周期设计                                            |
-| Task22          | ✅    | CropSystem 基础搭建                                          |
-| Task23          | ✅    | CropConfig 与 ConfigManager 接入，实现 Config 驱动 Crop 创建 |
-
-> 详细实现记录请查看 `Docs/TaskLog`。
-
-------
-
-# 四、当前系统关系
-
-```text
-GameStart
-        │
-        ▼
-GameSystemManager
-        │
-        ├── TimeSystem
-        ├── SchedulerSystem
-        └── CropSystem
-                │
-                ├── EntityManager
-                ├── CropConfigManager
-                └── Crop
-```
-
-目前已经形成完整的数据流：
-
-```text
-CropConfig
-        │
-        ▼
-CropSystem.CreateCrop()
-        │
-        ▼
-Crop(Entity)
-        │
-        ▼
-Scheduler 注册成长任务
-        │
-        ▼
-时间驱动作物生命周期
-```
-
-------
-
-# 五、当前实现能力
-
-目前框架已经能够支持：
-
-### 时间系统
-
-- 游戏时间推进
-- 时间事件通知
-
-------
-
-### 调度系统
-
-- 定时执行
-- 循环执行
-- 暂停
-- 恢复
-- 安全删除
-
-------
-
-### Entity
-
-- 创建
-- 注册
-- 查询
-- 删除
-
-------
-
-### Config
-
-- 查询配置
-- 数据驱动创建对象
-
-------
-
-### Crop
-
-支持完整生命周期：
-
-```text
-创建
-    │
-    ▼
-浇水
-    │
-    ▼
-成长
-    │
-    ▼
-收获
-    │
-    ▼
-结束全部任务
-```
-
-------
-
-# 六、当前存在的已知限制
-
-目前属于框架验证阶段，因此存在以下限制：
-
-- 作物成长仍依赖固定时间。
-- Scheduler 回调中仍包含少量业务逻辑。
-- Harvest 采用定时触发，而非成长值判断。
-- Config 暂为手写数据。
-- SaveSystem 尚未实现。
-
-以上属于预期设计，并非缺陷。
-
-------
-
-# 七、下一阶段目标
-
-**Task24：SaveSystem（计划）**
+## Phase 3 - AI Simulation
 
 目标：
 
-建立基础存档框架。
+建立 NPC 智能行为。
 
-预计包括：
+包含：
 
-- SaveSystem
-- SaveManager
-- SaveData
-- ISaveable 管理
-- 系统级存档入口
-
-完成后，将能够保存并恢复整个 Simulation 世界状态，为后续 NPC、Animal、Tree 等系统提供统一的存档基础。
+- NPC 状态
+- 需求系统
+- 行为决策
+- 对话系统
+- AI 驱动
 
 ------
 
-# 八、长期目标
+# Documentation Rules
 
-最终 Simulation 世界将由多个独立系统共同驱动：
+项目文档分为四类：
 
-```text
-TimeSystem
-        │
-        ▼
-SchedulerSystem
-        │
-        ├── CropSystem
-        ├── NPCSystem
-        ├── AnimalSystem
-        ├── TreeSystem
-        ├── BuildingSystem
-        ├── ItemSystem
-        ├── WeatherSystem
-        └── WorldSystem
-```
+## Architecture.md
 
-各系统通过统一的时间驱动、实体管理和配置数据协同工作，形成一个能够持续自主运行的模拟世界。
+记录：
 
-------
+- 项目整体架构
+- 模块关系
+- 开发规范
 
-# 九、维护规则
+## ProjectProgress.md
 
-每完成一个 Task：
+记录：
 
-1. 更新当前 Task 状态。
-2. 更新下一阶段目标（如有变化）。
-3. 保持 RoadMap 与实际开发进度一致。
-4. 在 `Docs/TaskLog` 中新增对应 Task 记录。
+- 当前开发阶段
+- 当前任务
+- 已完成任务
+- 后续计划
 
-本文件用于反映项目**当前开发状态**，不记录具体实现细节，具体设计原因和未来演进请参考 `DesignNotes.md`。
+## DesignNotes.md
+
+记录：
+
+- 重要设计决策
+- 架构调整原因
+- 后续优化方向
+
+## TaskLog
+
+每完成一个任务创建一个文件。
+
+格式：
+
+TaskXX.md
+
+记录：
+
+- 任务目标
+- 完成内容
+- 修改文件
+- 设计原因
+- 后续影响
