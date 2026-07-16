@@ -457,19 +457,19 @@ GrowthProgress >= 100%
 
 # 十一、SaveSystem 规划
 
-SaveSystem 将负责：
+```
 
-统一管理所有实现：
-
-```text
+SaveSystem 负责统一管理所有实现：
 ISaveable
 ```
+
+
 
 的系统。
 
 目标：
 
-```text
+```
 SaveSystem
         │
         ├── TimeSystem
@@ -485,6 +485,268 @@ SaveSystem
 - Load
 
 业务系统无需互相调用保存逻辑。
+
+------
+
+## Save Framework 职责划分
+
+SaveSystem 只负责存档流程管理。
+
+包括：
+
+- 模块注册
+- 数据收集
+- JSON 序列化
+- JSON 反序列化
+- 文件读写
+
+SaveSystem 不负责理解具体业务数据。
+
+例如：
+
+```
+CropSaveData
+
+NPCSaveData
+
+InventorySaveData
+```
+
+这些数据均属于对应业务模块。
+
+Framework 只提供统一保存机制，不包含任何 Simulation 数据类型。
+
+保持依赖方向：
+
+```
+Core
+ ↑
+Framework
+ ↑
+Simulation
+```
+
+避免 Framework 反向依赖 Simulation。
+
+------
+
+## ISaveable 设计
+
+所有需要保存状态的 System 实现：
+
+```
+ISaveable
+```
+
+接口。
+
+业务 System 自己决定：
+
+- 保存哪些数据
+- 如何生成保存数据
+- 如何根据数据恢复运行状态
+
+例如：
+
+```
+CropSystem
+
+负责：
+
+Crop数据保存
+
+Crop数据恢复
+```
+
+而：
+
+```
+SaveSystem
+```
+
+只负责调用统一接口。
+
+SaveSystem 不关心：
+
+- Crop 如何成长
+- NPC 如何行动
+- 建筑如何存在
+
+从而保持基础设施与业务逻辑解耦。
+
+------
+
+## SaveData 结构设计
+
+整个游戏存档由：
+
+```
+SaveData
+```
+
+作为入口。
+
+负责保存：
+
+- 存档版本
+- 各模块数据
+
+结构：
+
+```
+SaveData
+
+├── Version
+
+└── Datas
+
+      ├── TimeSystem
+
+      ├── CropSystem
+
+      ├── NPCSystem
+
+      └── ...
+```
+
+每个 System 使用唯一：
+
+```
+SaveKey
+```
+
+作为数据索引。
+
+SaveSystem 不需要知道具体 System 类型，只根据 Key 保存和读取对应数据。
+
+------
+
+## SaveData 归属原则
+
+各业务模块的数据结构由对应模块维护。
+
+例如：
+
+```
+CropSaveData
+        ↓
+Simulation/Crop
+
+
+NPCSaveData
+        ↓
+Simulation/NPC
+```
+
+而不是：
+
+```
+Framework/Save
+        ↓
+CropSaveData
+```
+
+原因：
+
+SaveData 描述的是业务状态，而不是存档机制。
+
+例如：
+
+Crop 知道：
+
+- 生长阶段
+- 种植时间
+- 水分状态
+
+SaveSystem 不应该知道：
+
+- 什么是 Crop
+- 什么是 NPC
+- 什么是 Building
+
+这样可以保证新增业务系统时无需修改 Save Framework。
+
+------
+
+## 存档版本管理
+
+SaveData 中保存当前存档版本。
+
+通过：
+
+```
+SaveVersion
+```
+
+统一维护。
+
+当前：
+
+```
+Version = 1
+```
+
+当未来存档结构发生不兼容修改时：
+
+例如：
+
+```
+Version 1
+
+Crop:
+    GrowthStage
+
+
+↓
+
+Version 2
+
+Crop:
+    GrowthProgress
+```
+
+需要通过迁移逻辑：
+
+```
+Version 1
+    |
+    ▼
+Migration
+    |
+    ▼
+Version 2
+```
+
+完成旧存档升级。
+
+当前阶段：
+
+- 保存版本号
+- 加载时检测版本
+
+为未来存档迁移预留入口。
+
+------
+
+## 当前实现状态
+
+已完成：
+
+- SaveSystem 基础框架
+- ISaveable 接口
+- SaveData
+- SaveVersion
+- JSON 序列化与读取
+- TimeSystem 存档验证
+
+后续：
+
+- CropSystem 接入
+- Scheduler 状态恢复
+- NPC 数据保存
+- 世界状态保存
+
+逐步接入统一 Save Framework。
 
 ------
 
