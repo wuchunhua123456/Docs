@@ -20,34 +20,47 @@ Phase 1 - Simulation Framework
 
 ------
 
-# Current Progress
+## 当前阶段
 
-## Current Status
+### 已完成
 
-当前已完成 Simulation Framework 基础建设。
-
-已完成：
-
-- Core 基础框架
-- GameSystem 管理体系
-- EventSystem
-- GameTime
+- Core 框架
+- EventCenter
+- LogSystem
 - TimeSystem
 - SchedulerSystem
-- Entity 基础体系
+- CropSystem
+- CropConfig
 - EntityManager
-- Crop 基础模拟体系
-- CropConfig 配置体系
+- Save Framework（Task25）
 
-## Current Task
+### Save Framework
 
-当前任务：
+完成第一版通用存档框架。
 
-Task25 - SaveSystem
+实现：
 
-## Next Goal
+- ISaveable
+- SaveSystem
+- SaveData
+- SaveVersion
 
-完成基础存档系统，使 Simulation 中的 Entity、System 状态可以被保存和恢复。
+目前已完成 TimeSystem 接入验证。
+
+后续业务系统均可通过实现 ISaveable 接入统一存档。
+
+### 下一任务
+
+Task26
+
+接入 CropSystem 存档。
+
+实现：
+
+- Crop 数据保存
+- Crop 数据恢复
+- SchedulerTask 重建
+- EntityId 恢复
 
 ------
 
