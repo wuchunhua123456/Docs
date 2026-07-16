@@ -66,15 +66,18 @@ Assets
     │
     ├── Editor
     ├── Framework
-    │   ├── GameSystemManager
+	│   ├── GameSystemManager
     │   ├── ISystem
-    │   └── ISaveable
+    │   └── Save
+    │       ├── ISaveable
+    │       ├── SaveSystem
+    │       ├── SaveData
+    │       └── SaveVersion
     │
     ├── Launcher
     │   └── GameStart
     │
     ├── NPC
-    ├── Save
     │
     ├── Simulation
     │   ├── Config
@@ -238,6 +241,8 @@ TimeSystem
 原则：
 
 System 可以依赖其它 System。
+
+System 可以通过 ISaveable 接入 SaveSystem。 SaveSystem 不属于业务 System， 只负责统一存档生命周期管理。
 
 禁止：
 
@@ -575,6 +580,8 @@ WaitRemove
 - SchedulerTask
 
 Config 不参与存档。
+
+SaveSystem 位于 Framework 层。 业务模块通过 ISaveable 接入存档。 Framework 不保存具体业务数据。
 
 ------
 
