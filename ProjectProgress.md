@@ -20,21 +20,25 @@ Phase 1 - Simulation Framework
 
 ------
 
-## 当前阶段
+# Current Stage
 
-### 已完成
+## Completed
+
+当前已完成：
 
 - Core 框架
 - EventCenter
 - LogSystem
 - TimeSystem
 - SchedulerSystem
+- EntityManager
 - CropSystem
 - CropConfig
-- EntityManager
-- Save Framework（Task25）
+- Save Framework
 
-### Save Framework
+------
+
+# Save Framework
 
 完成第一版通用存档框架。
 
@@ -45,22 +49,22 @@ Phase 1 - Simulation Framework
 - SaveData
 - SaveVersion
 
-目前已完成 TimeSystem 接入验证。
+设计：
 
-后续业务系统均可通过实现 ISaveable 接入统一存档。
+- SaveSystem 负责统一存档流程。
+- 业务 System 负责自身数据序列化。
+- Framework 不保存具体业务数据。
 
-### 下一任务
+当前支持：
 
-Task26
+- TimeSystem 存档验证。
+- CropSystem 存档接入。
 
-接入 CropSystem 存档。
+原则：
 
-实现：
+> Save 保存世界状态，不保存运行时对象。
 
-- Crop 数据保存
-- Crop 数据恢复
-- SchedulerTask 重建
-- EntityId 恢复
+SchedulerTask 等运行时任务由业务 System 根据状态重新创建。
 
 ------
 
@@ -81,6 +85,7 @@ Task26
 - TimeSystem
 - SchedulerSystem
 
+
 ### Task18
 
 完成 Entity 基础设计。
@@ -89,6 +94,7 @@ Task26
 
 - Entity 基础数据结构
 - Entity 生命周期设计
+
 
 ### Task19
 
@@ -100,6 +106,7 @@ Task26
 - Entity 注册
 - Entity 查询
 
+
 ### Task20
 
 完成 Crop 接入 Entity 体系。
@@ -108,6 +115,7 @@ Task26
 
 - Crop 作为 Simulation Entity
 - Crop 生命周期基础结构
+
 
 ### Task21
 
@@ -120,6 +128,7 @@ Task26
 - 浇水任务
 - 收获任务
 
+
 ### Task22
 
 完成 CropSystem 基础搭建。
@@ -129,6 +138,7 @@ Task26
 - Crop 创建管理
 - Crop 生命周期驱动
 
+
 ### Task23
 
 完成 CropConfig 与 ConfigManager 接入。
@@ -137,6 +147,7 @@ Task26
 
 - 配置数据独立管理
 - Config 驱动 Crop 创建
+
 
 ### Task24
 
@@ -148,6 +159,39 @@ Task26
 - 通过 ConfigId 获取对应配置
 - 降低 Entity 与 Config 耦合
 - 支持后续序列化与存档
+
+
+### Task25
+
+完成 Save Framework 基础建设。
+
+内容：
+
+- 创建 ISaveable
+- 创建 SaveSystem
+- 创建 SaveData
+- 创建 SaveVersion
+- 确定业务 System 自主管理存档数据方案
+
+
+### Task26
+
+完成 CropSystem 存档接入。
+
+内容：
+
+- CropSystem 实现 ISaveable
+- 创建 CropSaveData
+- 创建 CropData
+- 实现 Crop 数据保存
+- 实现 Crop 数据恢复
+- Load 时重新创建运行时任务
+
+调整：
+
+- SchedulerTask 不进入存档。
+- TaskId 作为运行时数据处理。
+- EntityManager 生命周期由初始化流程管理。
 
 ------
 
@@ -167,6 +211,15 @@ Task26
 - 配置系统
 - 存档系统
 
+
+当前状态：
+
+基础框架完成。
+
+后续继续完善 Simulation 模块。
+
+------
+
 ## Phase 2 - World Simulation
 
 目标：
@@ -180,6 +233,9 @@ Task26
 - 资源系统
 - NPC 基础系统
 - 动物系统
+
+
+------
 
 ## Phase 3 - AI Simulation
 
@@ -209,6 +265,7 @@ Task26
 - 模块关系
 - 开发规范
 
+
 ## ProjectProgress.md
 
 记录：
@@ -218,6 +275,7 @@ Task26
 - 已完成任务
 - 后续计划
 
+
 ## DesignNotes.md
 
 记录：
@@ -225,6 +283,8 @@ Task26
 - 重要设计决策
 - 架构调整原因
 - 后续优化方向
+
+
 
 ## TaskLog
 

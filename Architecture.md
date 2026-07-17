@@ -157,21 +157,37 @@ Assets
 
 ------
 
-## EntityManager
+- ## EntityManager
 
-负责：
+  负责：
 
-- EntityId 分配
-- Register
-- Remove
-- Get
-- Contains
+  EntityId 分配。
 
-不负责：
+  Register。
 
-- Entity 行为
-- Scheduler
-- Config
+  Remove。
+
+  Get。
+
+  Contains。
+
+  不负责：
+
+  Entity 行为。
+
+  Scheduler。
+
+  Config。
+
+  Save。
+
+  EntityManager 当前属于 Simulation 基础管理类。
+
+  不实现：
+
+  ISystem。
+
+  ISaveable。
 
 ------
 
@@ -204,45 +220,48 @@ Assets
 
 例如：
 
-```text
+```
 CropSystem
 ```
 
 负责：
 
-- 创建 Crop
-- 删除 Crop
-- Crop 生命周期
+- 创建 Crop。
+- 删除 Crop。
+- Crop 生命周期。
+- Crop 数据恢复。
 
 例如：
 
-```text
+```
 SchedulerSystem
 ```
 
 负责：
 
-- SchedulerTask 生命周期
-- 时间调度
+- SchedulerTask 生命周期。
+- 时间调度。
 
 例如：
 
-```text
+```
 TimeSystem
 ```
 
 负责：
 
-- 游戏时间
-- 分钟事件
-- 小时事件
-- 日期推进
+- 游戏时间。
+- 分钟事件。
+- 小时事件。
+- 日期推进。
 
 原则：
 
 System 可以依赖其它 System。
 
-System 可以通过 ISaveable 接入 SaveSystem。 SaveSystem 不属于业务 System， 只负责统一存档生命周期管理。
+System 可以通过 ISaveable 接入 SaveSystem。
+
+SaveSystem 不属于业务 System，只负责统一存档生命周期管理。
 
 禁止：
 
