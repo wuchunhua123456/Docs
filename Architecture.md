@@ -336,7 +336,6 @@ Scheduler 是整个 Simulation 的时间调度中心。
 - Pause
 - Resume
 - Remove
-- SaveData
 
 Scheduler 不负责：
 
